@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+body {
+  font-family: "Helvetica", Courier, monospace;
+  max-width: 70%;
+  margin: 0 auto;
+  background-color: #323232;
+  color: #DDD0C8;
+}
+
+
+
+
+
