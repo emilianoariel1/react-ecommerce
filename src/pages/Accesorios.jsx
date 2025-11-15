@@ -1,30 +1,33 @@
-import { Link } from 'react-router-dom'
-import { SyncLoader } from 'react-spinners'
-import { useCarritoContext } from '../context/CarritoContext'
-import { useProductoContext } from '../context/ProductoContext'
+import { Link } from "react-router-dom"
+import { SyncLoader } from "react-spinners"
+import { useProductoContext } from "../context/ProductoContext"
+import { useCarritoContext } from "../context/CarritoContext"
 
-const ListaProductos = () => {
-
+const Accesorios = () => {
+  
   const { productos, cargando, error } = useProductoContext()
   const { agregarAlCarrito } = useCarritoContext()
 
+  const listaFiltrada = productos.filter((prod) => prod.category == "Accesorios")
+    
   if(cargando)
     return <div class="text-center my-10"><SyncLoader color="#DDD0C8" /></div>
-  
+      
   if(error)
     return <p>{error}</p>
-
-  return (
-    <div class="mt-8">
+  
+    return (
+    <div class="mt-10">
         
-        <p class="text-4xl mb-10 underline">Lista de Productos</p>
+        <p class="text-4xl underline mb-10">Los Mejores Accesorios</p>
         
-        {productos.map((prod, index) => (
+        {listaFiltrada.map((prod, index) => (
           <div key={index} class="flex my-5 gap-7 items-center border rounded-md px-2 py-3">
             <Link to={`/producto/${prod.id}`} class="flex items-center gap-4">
               <img src={prod.image} class="w-16 h-16"/>
-              <p>{prod.title}: {prod.price}$</p>
+              <p class="">{prod.title}: {prod.price}$</p>
             </Link>
+            
             <button onClick={() => agregarAlCarrito(prod)} 
               class="bg-[#DDD0C8] text-black font-semibold py-2 px-2 border-2 border-transparent hover:border-black rounded text-sm cursor-pointer ml-auto">
                 Agregar
@@ -36,4 +39,4 @@ const ListaProductos = () => {
   )
 }
 
-export default ListaProductos
+export default Accesorios

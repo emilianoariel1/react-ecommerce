@@ -8,10 +8,10 @@ const Nav = () => {
           <Link to={"/"} class="hover:underline">Inicio</Link>
         </li>
         <li>
-          <Link to={"/moda"} class="hover:underline">Moda</Link>
+          <Link to={"/indumentaria"} class="hover:underline">Indumentaria</Link>
         </li>
         <li>
-          <Link to={"/computacion"} class="hover:underline">Computación</Link>
+          <Link to={"/accesorios"} class="hover:underline">Accesorios</Link>
         </li>
       </ul>
     </nav>

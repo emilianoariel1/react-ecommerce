@@ -1,21 +1,16 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { SyncLoader } from "react-spinners";
+import { useParams } from "react-router-dom"
+import { SyncLoader } from "react-spinners"
+import { useProductoContext } from "../context/ProductoContext"
 
 const DetalleProducto = () => {
   
+  const { productos, cargando, error } = useProductoContext()
+  
   const {id} = useParams()
-  const [producto, setProducto] = useState(null)
-  const [error, setError] = useState(null)
 
-  useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${id}`)
-      .then(res => res.json())
-      .then(data => setProducto(data))
-      .catch(err => setError(err))
-  }, [id])
+  const producto = productos.find(p => p.id === id)
 
-  if(!producto)
+  if(cargando)
     return <div class="text-center my-10"><SyncLoader color="#DDD0C8" size="30" /></div>
   
   if(error)
