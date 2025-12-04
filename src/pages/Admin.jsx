@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 const Admin = () => {
   return (
     <div class="mt-8 mb-8">
-        <p class="text-4xl mb-10 underline">Panel del Admin</p>
+        <p class="text-4xl mb-10">Panel del Admin</p>
 
         <Link to={"/gestionProductos"}>
             <button  

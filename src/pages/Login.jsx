@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthContext } from '../context/AuthContext'
+import { ToastContainer, toast } from 'react-toastify'
 
 const Login = () => {
   
@@ -12,18 +13,17 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
-    if(usuario == 'admin' && password == '1234') {
-      iniciarSesion(usuario)
-      navigate('/admin')
+
+    if(iniciarSesion(usuario, password)) {
+      navigate('/')
     } else {
-      alert('Nombre de Usuario o Contraseña incorrecto')
+      toast.error('Nombre de Usuario o Contraseña incorrecto')
     }
   }
 
   return (
     <>
-        <p class="text-4xl mb-10 underline mt-8">Iniciar Sesion</p>
+        <p class="text-4xl mb-10 mt-8">Iniciar Sesion</p>
 
         <form onSubmit={handleSubmit} class="border rounded-md px-5 py-6 text-2xl mb-10">
             
@@ -52,6 +52,8 @@ const Login = () => {
             </div>
 
         </form>
+
+        <ToastContainer position="bottom-right" theme="dark" />
     </>
   )
 }

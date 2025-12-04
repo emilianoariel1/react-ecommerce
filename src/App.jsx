@@ -10,6 +10,8 @@ import Login from './pages/Login'
 import RutaProtegida from './components/RutaProtegida'
 import Admin from './pages/Admin'
 import GestionProductos from './components/GestionProductos'
+import ResultadoBusqueda from './components/ResultadoBusqueda'
+import RutaAdmin from './components/RutaAdmin'
 
 function App() {
 
@@ -22,6 +24,7 @@ function App() {
         <Route path={'/producto/:id'} element={<DetalleProducto/>}/>
         <Route path={'/indumentaria'} element={<Indumentaria/>}/>
         <Route path={'/accesorios'} element={<Accesorios/>}/>
+        <Route path={'/busqueda'} element={<ResultadoBusqueda/>}/>
         
         <Route 
           path={'/carrito'} 
@@ -35,18 +38,18 @@ function App() {
         <Route 
           path={'/admin'} 
           element={
-          <RutaProtegida>
+          <RutaAdmin>
             <Admin />
-          </RutaProtegida>
+          </RutaAdmin>
           }
         />
 
         <Route 
           path={'/gestionProductos'} 
           element={
-          <RutaProtegida>
+          <RutaAdmin>
             <GestionProductos />
-          </RutaProtegida>
+          </RutaAdmin>
           }
         />
 

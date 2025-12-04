@@ -4,11 +4,15 @@ import { BsBagHeart } from "react-icons/bs"
 import { Link } from "react-router-dom"
 import { useAuthContext } from "../context/AuthContext"
 import { useCarritoContext } from "../context/CarritoContext"
+import BarraBusqueda from "./BarraBusqueda"
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 const Header = () => {
 
   const {usuario, cerrarSesion} = useAuthContext()
   const logeado = !!usuario
+  const esAdmin = usuario?.role === 'admin'
   const { carrito } = useCarritoContext()
 
   return (
@@ -19,12 +23,45 @@ const Header = () => {
       </Link>
         <Nav />
       <div class="flex gap-4 items-center">
+        <BarraBusqueda />
+
         {
           logeado ?
-          <button onClick={cerrarSesion} class="hover:underline cursor-pointer">Cerrar Sesion</button>
+          <Menu as="div" className="relative inline-block">
+            <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-[#DDD0C8] inset-ring-1 inset-ring-white/5 hover:bg-white/20 hover:cursor-pointer">
+              {usuario.username}
+              <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
+            </MenuButton>
+
+            <MenuItems
+              transition
+              className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-[#323232] outline-1 -outline-offset-1 outline-white/10 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in border"
+            >
+              <div className="py-1">
+                {
+                  esAdmin ?
+                    <MenuItem>
+                      <Link to={"/admin"} className="block px-4 py-2 text-sm text-[#DDD0C8] data-focus:bg-white/5 data-focus:text-white data-focus:outline-hidden">
+                        Panel del Admin
+                      </Link>
+                    </MenuItem>
+                  :
+                  <></>
+                }
+              
+                <MenuItem>
+                  <p onClick={cerrarSesion} class="block px-4 py-2 text-sm text-[#DDD0C8] data-focus:bg-white/5 data-focus:text-white data-focus:outline-hidden hover:cursor-pointer">
+                    Cerrar Sesion
+                  </p>
+                </MenuItem>
+              </div>
+            </MenuItems>
+          </Menu>
           :
           <Link to={"/login"}>
-          <p class="hover:underline cursor-pointer">Iniciar Sesion</p>
+            <p class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white/10 px-3 py-2 text-sm font-semibold text-white inset-ring-1 inset-ring-white/5 hover:bg-white/20 hover:cursor-pointer">
+              Iniciar Sesion
+            </p>
           </Link>
         }
         

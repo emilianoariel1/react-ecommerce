@@ -3,6 +3,7 @@ import { SyncLoader } from "react-spinners"
 import ProductoForm from "./ProductoForm"
 import { Link } from "react-router-dom"
 import { useProductoContext } from "../context/ProductoContext"
+import { ToastContainer } from "react-toastify"
 
 const GestionProductos = () => {
 
@@ -37,7 +38,7 @@ const GestionProductos = () => {
       
       <div class="flex items-center mb-8">
         
-        <p class="text-4xl underline">Gestion de Productos</p>
+        <p class="text-4xl">Gestion de Productos</p>
         
         <button class="bg-[#DDD0C8] text-black font-semibold py-2 px-2 border-2 border-transparent hover:border-black rounded text-sm cursor-pointer ml-auto"
         onClick={() => formularioAgregar()}>
@@ -51,7 +52,7 @@ const GestionProductos = () => {
               
               <Link to={`/producto/${prod.id}`} class="flex items-center gap-4">
                 <img src={prod.image} class="w-16 h-16"/>
-                <p>{prod.title}: {prod.price}$</p>
+                <p>{prod.title}: ${prod.price}.0</p>
               </Link>
               
               <div class="flex ml-auto gap-3">
@@ -68,14 +69,17 @@ const GestionProductos = () => {
             </div>
           ))}
 
-        {mostrarForm && (
-          <>
+         
             <ProductoForm productoSeleccionado={ productoSeleccionado || {} } 
-            modo={modoFormulario} 
+            modo={modoFormulario}
+            abierto={mostrarForm} 
             cerrar={cerrarForm}
             />
-          </> 
-        )}
+
+            <ToastContainer position="bottom-right" theme="dark" />
+         
+          
+        
 
     </div>
   )

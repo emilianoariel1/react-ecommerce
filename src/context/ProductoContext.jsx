@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react'
+import { toast } from 'react-toastify'
 
 const ProductoContext = createContext()
 
@@ -53,13 +54,14 @@ export const ProductoProvider = ({ children }) => {
 
       const nuevoProducto = await respuesta.json()
       console.log("Producto agregado: ", nuevoProducto)
-      alert("Producto agregado correctamente")
+      toast.success("Producto agregado correctamente")
 
       setProductos([...productos, nuevoProducto])
 
     } catch (error) {
         console.error(error.message)
         setError("Hubo un problema al agregar el producto.")
+        toast.error("Hubo un problema al agregar el producto")
     }
   }
 
@@ -81,6 +83,7 @@ export const ProductoProvider = ({ children }) => {
 
       const productoEditado = await res.json()
       console.log("Producto editado: ", productoEditado)
+      toast.success("Producto editado correctamente")
 
       setProductos(productos.map(prod =>
         prod.id === productoEditado.id ? productoEditado : prod
@@ -89,6 +92,7 @@ export const ProductoProvider = ({ children }) => {
     } catch (err) {
       console.error(err.message)
       alert("Hubo un error al actualizar producto.")
+      toast.error("Hubo un problema al editar el producto")
     }
   }
 
@@ -107,10 +111,11 @@ export const ProductoProvider = ({ children }) => {
           throw new Error("Error al eliminar") 
     
         setProductos(productos.filter(p => p.id !== id))
+        toast.success("Producto eliminado correctamente")
       } 
       catch (err) {
         console.error(err.message);
-        alert("Hubo un problema al eliminar el producto.")
+        toast.error("Hubo un problema al eliminar el producto.")
       }
     }
   }
